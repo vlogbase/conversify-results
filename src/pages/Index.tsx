@@ -58,6 +58,18 @@ const Index = () => {
     });
   };
 
+  const handleRemoveSearch = (index: number) => {
+    setRecentSearches((prev) => {
+      const newSearches = [...prev];
+      newSearches.splice(index, 1);
+      return newSearches;
+    });
+    toast({
+      title: "Search removed",
+      description: "The search has been removed from your history.",
+    });
+  };
+
   const handleUndo = (messageId: string) => {
     toast({
       title: "Message undone",
@@ -67,7 +79,10 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Sidebar recentSearches={recentSearches} />
+      <Sidebar 
+        recentSearches={recentSearches} 
+        onRemoveSearch={handleRemoveSearch}
+      />
       <main className="pt-16 px-4">
         <SearchBar onSearch={handleSearch} />
         <ModeToggle mode={mode} onModeChange={setMode} />
