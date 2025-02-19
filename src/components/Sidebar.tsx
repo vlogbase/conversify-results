@@ -74,12 +74,12 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
 
   return (
     <>
-      {/* <-- Revised toggle button with data-sidebar="trigger" --> */}
+      {/* Revised toggle button with data-sidebar="trigger" */}
       <Button
         data-sidebar="trigger"
         variant="ghost"
         size="icon"
-        className="fixed top-4 left-4 z-50"
+        className="fixed top-4 left-4 z-60"  {/* Increased z-index from z-50 to z-60 */}
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       >
@@ -91,9 +91,7 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
       </Button>
 
       <div
-        className={`sidebar ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`sidebar ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="p-6 space-y-8">
           {/* Recent Searches Section */}
