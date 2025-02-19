@@ -18,16 +18,20 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   return (
     <div className="search-bar-container">
       <form onSubmit={handleSubmit} className="relative">
-        <input
+        <textarea
           name="search"
-          type="text"
-          // Updated padding to accommodate the icons space
-          className="search-bar pr-[132px]"
+          className="search-bar pr-[132px] resize-none min-h-[60px] max-h-[200px]"
           placeholder="Ask your question or enter search terms"
           aria-label="Search input"
+          rows={1}
+          // Enable auto-height adjustment
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = 'auto';
+            target.style.height = `${target.scrollHeight}px`;
+          }}
         />
-        {/* Updated icon container positioning and spacing */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-background">
+        <div className="absolute right-4 top-4 flex items-center gap-2 bg-background">
           <Button
             variant="ghost"
             size="icon"
