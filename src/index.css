@@ -65,7 +65,7 @@
 }
 
 .search-bar {
-  /* Replaced `border border-gray-200` with `border border-border` */
+  /* Use border-border to match theme tokens */
   @apply w-full px-6 py-4 text-lg rounded-full border border-border
          shadow-sm transition-all duration-200
          focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
@@ -75,18 +75,17 @@
   line-height: 1.5;
 }
 
-/* Chat & Results styling (unchanged except for theme tokens) */
+/* Chat & Results styling */
 .mode-toggle {
   @apply flex p-1 mt-4 rounded-full bg-secondary mx-auto w-fit gap-2;
 }
 
 .mode-button {
   @apply px-6 py-2 rounded-full transition-all duration-200
-         hover:bg-background/80 data-[active=true]:bg-background
+         hover:bg-background/80 data-[active=true]:bg-background 
          data-[active=true]:shadow-sm;
 }
 
-/* Updated .result-card to use theme tokens */
 .result-card {
   @apply p-6 rounded-xl border border-border transition-all duration-200
          hover:shadow-lg hover:border-primary/20 bg-card text-card-foreground;
@@ -104,9 +103,16 @@
   @apply bg-secondary text-foreground mr-auto;
 }
 
-/* Updated .sidebar to use theme tokens for dark mode support */
+/* Sidebar styling */
 .sidebar {
   @apply fixed top-0 left-0 h-full w-72 bg-card text-card-foreground border-r border-border
          transform transition-transform duration-200 ease-in-out
          shadow-lg z-50;
+}
+
+/* Make text a bit bigger on smaller screens */
+@media (max-width: 640px) {
+  body {
+    font-size: 1.125rem; /* ~18px */
+  }
 }
