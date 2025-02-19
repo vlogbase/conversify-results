@@ -25,6 +25,29 @@
     --ring: 222.2 84% 4.9%;
     --radius: 0.75rem;
   }
+
+  /* Dark theme overrides */
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 50% 96.5%;
+    --card: 224 71% 4%;
+    --card-foreground: 210 50% 96.5%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 50% 96.5%;
+    --primary: 210 46% 49%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 218 18% 15%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 218 18% 15%;
+    --muted-foreground: 210 40% 98%;
+    --accent: 218 18% 15%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 210 46% 49%;
+  }
 }
 
 @layer base {
@@ -36,6 +59,7 @@
   }
 }
 
+/* Search bar container & styling */
 .search-bar-container {
   @apply relative w-full max-w-2xl mx-auto;
 }
@@ -50,8 +74,7 @@
   line-height: 1.5;
 }
 
-/* Chat & Results styling, unchanged: */
-
+/* Chat & Results styling (unchanged) */
 .mode-toggle {
   @apply flex p-1 mt-4 rounded-full bg-secondary mx-auto w-fit gap-2;
 }
@@ -63,24 +86,4 @@
 }
 
 .result-card {
-  @apply p-6 rounded-xl border border-gray-100 transition-all duration-200
-         hover:shadow-lg hover:border-primary/20 bg-white;
-}
-
-.chat-message {
-  @apply p-4 rounded-xl max-w-[80%] animate-slide-in;
-}
-
-.user-message {
-  @apply bg-primary text-white ml-auto;
-}
-
-.ai-message {
-  @apply bg-secondary text-foreground mr-auto;
-}
-
-.sidebar {
-  @apply fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-200
-         transform transition-transform duration-200 ease-in-out
-         shadow-lg z-50;
-}
+ 
