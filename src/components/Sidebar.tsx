@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X, FolderPlus, FolderMinus, Move } from "lucide-react";
 import { Button } from "./ui/button";
@@ -59,8 +58,8 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
   const handleDrop = (e: React.DragEvent, projectId: string) => {
     e.preventDefault();
     const search = e.dataTransfer.getData("text/plain");
-    
-    setProjects((prev) => 
+
+    setProjects((prev) =>
       prev.map((project) => {
         if (project.id === projectId && !project.chats.includes(search)) {
           return {
@@ -75,7 +74,9 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
 
   return (
     <>
+      {/* <-- Revised toggle button with data-sidebar="trigger" --> */}
       <Button
+        data-sidebar="trigger"
         variant="ghost"
         size="icon"
         className="fixed top-4 left-4 z-50"
@@ -88,6 +89,7 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
           <ChevronRight className="h-4 w-4" />
         )}
       </Button>
+
       <div
         className={`sidebar ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -99,8 +101,8 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
             <h2 className="text-lg font-semibold mb-4">Recent Searches</h2>
             <ul className="space-y-2">
               {recentSearches.map((search, index) => (
-                <li 
-                  key={index} 
+                <li
+                  key={index}
                   className="flex items-center gap-2"
                   draggable
                   onDragStart={(e) => handleDragStart(e, search)}
@@ -153,8 +155,8 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
 
               <ul className="space-y-2">
                 {projects.map((project) => (
-                  <li 
-                    key={project.id} 
+                  <li
+                    key={project.id}
                     className="space-y-1"
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, project.id)}

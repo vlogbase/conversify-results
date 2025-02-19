@@ -109,7 +109,7 @@
          shadow-lg z-50;
 }
 
-/* Restore sidebar close trigger arrow styling */
+/* Make sure the sidebar toggle arrow is visible */
 [data-sidebar="trigger"] svg {
   @apply text-card-foreground h-5 w-5;
 }
