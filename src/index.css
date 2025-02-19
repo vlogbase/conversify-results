@@ -65,8 +65,9 @@
 }
 
 .search-bar {
-  @apply w-full px-6 py-4 text-lg rounded-full border border-gray-200 
-         shadow-sm transition-all duration-200 
+  /* Replaced `border border-gray-200` with `border border-border` */
+  @apply w-full px-6 py-4 text-lg rounded-full border border-border
+         shadow-sm transition-all duration-200
          focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
   white-space: pre-wrap;
   overflow-wrap: break-word;
@@ -74,20 +75,21 @@
   line-height: 1.5;
 }
 
-/* Chat & Results styling (unchanged) */
+/* Chat & Results styling (unchanged except for theme tokens) */
 .mode-toggle {
   @apply flex p-1 mt-4 rounded-full bg-secondary mx-auto w-fit gap-2;
 }
 
 .mode-button {
   @apply px-6 py-2 rounded-full transition-all duration-200
-         hover:bg-background/80 data-[active=true]:bg-background 
+         hover:bg-background/80 data-[active=true]:bg-background
          data-[active=true]:shadow-sm;
 }
 
+/* Updated .result-card to use theme tokens */
 .result-card {
-  @apply p-6 rounded-xl border border-gray-100 transition-all duration-200
-         hover:shadow-lg hover:border-primary/20 bg-white;
+  @apply p-6 rounded-xl border border-border transition-all duration-200
+         hover:shadow-lg hover:border-primary/20 bg-card text-card-foreground;
 }
 
 .chat-message {
@@ -102,8 +104,9 @@
   @apply bg-secondary text-foreground mr-auto;
 }
 
+/* Updated .sidebar to use theme tokens for dark mode support */
 .sidebar {
-  @apply fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-200
+  @apply fixed top-0 left-0 h-full w-72 bg-card text-card-foreground border-r border-border
          transform transition-transform duration-200 ease-in-out
          shadow-lg z-50;
 }
