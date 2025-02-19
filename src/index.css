@@ -65,7 +65,6 @@
 }
 
 .search-bar {
-  /* Use border-border to match theme tokens */
   @apply w-full px-6 py-4 text-lg rounded-full border border-border
          shadow-sm transition-all duration-200
          focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
@@ -110,9 +109,14 @@
          shadow-lg z-50;
 }
 
-/* Make text a bit bigger on smaller screens */
+/* Restore sidebar close trigger arrow styling */
+[data-sidebar="trigger"] svg {
+  @apply text-card-foreground h-5 w-5;
+}
+
+/* Increase base text size on small screens */
 @media (max-width: 640px) {
   body {
-    font-size: 1.5rem; /
+    font-size: 1.4rem;
   }
 }
