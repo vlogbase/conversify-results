@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, X, FolderPlus, FolderMinus, Move } from "lucide-react";
 import { Button } from "./ui/button";
 
-interface Folder {
+interface Project {
   id: string;
   name: string;
   chats: string[];
@@ -16,36 +16,61 @@ interface SidebarProps {
 
 const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [folders, setFolders] = useState<Folder[]>([
+  const [projects, setProjects] = useState<Project[]>([
     {
       id: "1",
       name: "Research",
       chats: ["Photosynthesis Discussion", "Plant Growth Analysis"],
     },
   ]);
-  const [newFolderName, setNewFolderName] = useState("");
-  const [expandedFolder, setExpandedFolder] = useState<string | null>(null);
+  const [newProjectName, setNewProjectName] = useState("");
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
 
-  const handleAddFolder = () => {
-    if (newFolderName.trim()) {
-      setFolders((prev) => [
+  const handleAddProject = () => {
+    if (newProjectName.trim()) {
+      setProjects((prev) => [
         ...prev,
         {
           id: Date.now().toString(),
-          name: newFolderName.trim(),
+          name: newProjectName.trim(),
           chats: [],
         },
       ]);
-      setNewFolderName("");
+      setNewProjectName("");
     }
   };
 
-  const handleRemoveFolder = (folderId: string) => {
-    setFolders((prev) => prev.filter((folder) => folder.id !== folderId));
+  const handleRemoveProject = (projectId: string) => {
+    setProjects((prev) => prev.filter((project) => project.id !== projectId));
   };
 
-  const toggleFolder = (folderId: string) => {
-    setExpandedFolder(expandedFolder === folderId ? null : folderId);
+  const toggleProject = (projectId: string) => {
+    setExpandedProject(expandedProject === projectId ? null : projectId);
+  };
+
+  const handleDragStart = (e: React.DragEvent, search: string) => {
+    e.dataTransfer.setData("text/plain", search);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent, projectId: string) => {
+    e.preventDefault();
+    const search = e.dataTransfer.getData("text/plain");
+    
+    setProjects((prev) => 
+      prev.map((project) => {
+        if (project.id === projectId && !project.chats.includes(search)) {
+          return {
+            ...project,
+            chats: [...project.chats, search],
+          };
+        }
+        return project;
+      })
+    );
   };
 
   return (
@@ -74,7 +99,12 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
             <h2 className="text-lg font-semibold mb-4">Recent Searches</h2>
             <ul className="space-y-2">
               {recentSearches.map((search, index) => (
-                <li key={index} className="flex items-center gap-2">
+                <li 
+                  key={index} 
+                  className="flex items-center gap-2"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, search)}
+                >
                   <Button
                     variant="ghost"
                     className="flex-1 justify-start text-sm truncate"
@@ -95,16 +125,16 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
             </ul>
           </section>
 
-          {/* Folders Section */}
+          {/* Projects Section */}
           <section>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Folders</h2>
+              <h2 className="text-lg font-semibold">Projects</h2>
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={handleAddFolder}
-                disabled={!newFolderName.trim()}
-                aria-label="Add folder"
+                onClick={handleAddProject}
+                disabled={!newProjectName.trim()}
+                aria-label="Add project"
               >
                 <FolderPlus className="h-4 w-4" />
               </Button>
@@ -114,37 +144,42 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
               <div className="flex gap-2">
                 <input
                   type="text"
-                  value={newFolderName}
-                  onChange={(e) => setNewFolderName(e.target.value)}
-                  placeholder="New folder name"
+                  value={newProjectName}
+                  onChange={(e) => setNewProjectName(e.target.value)}
+                  placeholder="New project name"
                   className="w-full px-3 py-1 text-sm rounded-md border border-input bg-background"
                 />
               </div>
 
               <ul className="space-y-2">
-                {folders.map((folder) => (
-                  <li key={folder.id} className="space-y-1">
+                {projects.map((project) => (
+                  <li 
+                    key={project.id} 
+                    className="space-y-1"
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, project.id)}
+                  >
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
                         className="flex-1 justify-start text-sm font-medium"
-                        onClick={() => toggleFolder(folder.id)}
+                        onClick={() => toggleProject(project.id)}
                       >
-                        {folder.name}
+                        {project.name}
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8"
-                        onClick={() => handleRemoveFolder(folder.id)}
-                        aria-label="Remove folder"
+                        onClick={() => handleRemoveProject(project.id)}
+                        aria-label="Remove project"
                       >
                         <FolderMinus className="h-4 w-4" />
                       </Button>
                     </div>
-                    {expandedFolder === folder.id && (
+                    {expandedProject === project.id && (
                       <ul className="pl-4 space-y-1">
-                        {folder.chats.map((chat, index) => (
+                        {project.chats.map((chat, index) => (
                           <li key={index} className="flex items-center gap-2">
                             <Button
                               variant="ghost"
