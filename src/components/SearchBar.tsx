@@ -9,17 +9,18 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const input = form.elements.namedItem('search') as HTMLInputElement;
+    const input = form.elements.namedItem("search") as HTMLInputElement;
     onSearch(input.value);
-    input.value = '';
+    input.value = "";
   };
 
   return (
     <div className="search-bar-container">
       <form onSubmit={handleSubmit} className="relative">
+        {/* Increased right padding from pr-[132px] to pr-40 so icons won't overlap text */}
         <textarea
           name="search"
-          className="search-bar pr-[132px] resize-none min-h-[60px] overflow-hidden"
+          className="search-bar pr-40 resize-none min-h-[60px] overflow-hidden"
           placeholder="Ask your question or enter search terms"
           aria-label="Search input"
           rows={1}
@@ -48,10 +49,10 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
           >
             <ImageIcon className="w-5 h-5 text-primary" />
           </Button>
-          <Button 
-            type="submit" 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            type="submit"
+            variant="ghost"
+            size="icon"
             className="hover:bg-secondary"
           >
             <Search className="w-5 h-5 text-primary" />
