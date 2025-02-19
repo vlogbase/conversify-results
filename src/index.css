@@ -86,4 +86,24 @@
 }
 
 .result-card {
- 
+  @apply p-6 rounded-xl border border-gray-100 transition-all duration-200
+         hover:shadow-lg hover:border-primary/20 bg-white;
+}
+
+.chat-message {
+  @apply p-4 rounded-xl max-w-[80%] animate-slide-in;
+}
+
+.user-message {
+  @apply bg-primary text-white ml-auto;
+}
+
+.ai-message {
+  @apply bg-secondary text-foreground mr-auto;
+}
+
+.sidebar {
+  @apply fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-200
+         transform transition-transform duration-200 ease-in-out
+         shadow-lg z-50;
+}
