@@ -1,4 +1,3 @@
-
 import { Mic, Image as ImageIcon, Search } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -20,14 +19,15 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
       <form onSubmit={handleSubmit} className="relative">
         <textarea
           name="search"
-          className="search-bar pr-[132px] resize-none min-h-[60px] max-h-[200px]"
+          className="search-bar pr-[132px] resize-none min-h-[60px] overflow-hidden"
           placeholder="Ask your question or enter search terms"
           aria-label="Search input"
           rows={1}
-          // Enable auto-height adjustment
           onInput={(e) => {
             const target = e.target as HTMLTextAreaElement;
-            target.style.height = 'auto';
+            // Reset height to auto to shrink if text is deleted
+            target.style.height = "auto";
+            // Then set it to match the new scroll height
             target.style.height = `${target.scrollHeight}px`;
           }}
         />
