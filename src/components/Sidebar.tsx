@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X, FolderPlus, FolderMinus, Move } from "lucide-react";
 import { Button } from "./ui/button";
@@ -79,7 +80,7 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
         data-sidebar="trigger"
         variant="ghost"
         size="icon"
-        className="fixed top-4 left-4 z-60"  {/* Increased z-index from z-50 to z-60 */}
+        className="fixed top-4 left-4 z-60" // Increased z-index from z-50 to z-60
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
       >
@@ -212,3 +213,4 @@ const Sidebar = ({ recentSearches, onRemoveSearch }: SidebarProps) => {
 };
 
 export default Sidebar;
+
